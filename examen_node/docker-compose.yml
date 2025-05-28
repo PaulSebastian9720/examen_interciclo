@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  node_server:
+    image: paulsebastian97/apppruebawebs
+    container_name: node_server
+    hostname: node_server
+    
+    ports:
+      - "3000:3000"
+    command: npm start
+    networks:
+      - app-network
+
+  frontend:
+    image: paulsebastian97/appfrontedinter
+    depends_on:
+      - node_server
+    ports:
+      - "4200:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
